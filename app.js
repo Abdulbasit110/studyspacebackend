@@ -6,6 +6,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const authRoutes = require("./api/routes/auth.router");
+const collectionRoutes = require("./api/routes/collection.router");
 const chatbotRouter = require("./api/routes/chatbot.router");
 
 const app = express();
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/collection", collectionRoutes);
 app.use("/api/chatbot", chatbotRouter);
 
 // setting mongoose connection and starting server

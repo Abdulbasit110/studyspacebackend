@@ -6,43 +6,36 @@ const JWT_SECRET = process.env.JWT_SecretKey || "mysupersupersecretkey";
 
 const signup = async (req, res) => {
   try {
-    const { email, password, firstName, lastName, role } = req.body;
+    const { email, password, firstName, lastName, googleId } = req.body;
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res
-        .status(409)
-        .json({ code: 409, message: "Email is already registered" });
+    let user = await User.findOne({ email });
+
+    if (user) {
+      // If user exists and is signing up via Google, update their Google ID
+      if (googleId && user.authType === "google") {
+        user.googleId = googleId;
+        await user.save();
+        return generateAndSendToken(user, res, "User updated with Google ID");
+      }
+      return res.status(409).json({ code: 409, message: "Email is already registered" });
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Hash password if it's a password-based signup
+    const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
+    const authType = googleId ? "google" : "password";
 
-    // Create new user
-    const user = new User({
+    user = new User({
+      username: email.split("@")[0],
       email,
-      password: hashedPassword,
-      firstName,
-      lastName,
-      role,
+      passwordHash: hashedPassword,
+      authType,
+      firstName: firstName || null,
+      lastName: lastName || null,
+      googleId: googleId || null,
     });
+
     await user.save();
-
-    // Generate JWT Token
-    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.status(201).json({
-      code: 201,
-      message: "User registered successfully",
-      token: token,
-      data: {
-        userId: user._id,
-        role: user.role,
-      },
-    });
+    return generateAndSendToken(user, res, "User registered successfully");
   } catch (error) {
     createErrorResponse(res, error);
   }
@@ -50,36 +43,57 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    // Find user by email
+    const { email, password, googleId } = req.body;
     const user = await User.findOne({ email });
+
     if (!user) {
-      return res.status(401).json({ code: 401, message: "Invalid email" });
+      return res.status(401).json({ code: 401, message: "Invalid email or user not found" });
     }
 
-    // Compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
+    if (googleId) {
+      // Google authentication
+      if (user.authType !== "google" || user.googleId !== googleId) {
+        return res.status(400).json({ code: 400, message: "Google authentication failed" });
+      }
+      return generateAndSendToken(user, res, "Login successful with Google");
+    }
+
+    if (user.authType === "google") {
+      return res.status(400).json({
+        code: 400,
+        message: "This account is registered via Google authentication. Use Google Login.",
+      });
+    }
+
+    // Password authentication
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
       return res.status(401).json({ code: 401, message: "Invalid password" });
     }
 
-    // Generate JWT Token
-    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.status(200).json({
-      code: 200,
-      message: "Login successful",
-      token: token,
-      data: {
-        user,
-      },
-    });
+    return generateAndSendToken(user, res, "Login successful");
   } catch (error) {
     createErrorResponse(res, error);
   }
+};
+
+const generateAndSendToken = (user, res, message) => {
+  const token = jwt.sign(
+    { userId: user._id, username: user.username, authType: user.authType },
+    JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+
+  return res.status(200).json({
+    code: 200,
+    message,
+    token,
+    data: {
+      userId: user._id,
+      username: user.username,
+      authType: user.authType,
+    },
+  });
 };
 
 module.exports = { signup, login };

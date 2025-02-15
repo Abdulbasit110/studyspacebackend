@@ -17,7 +17,7 @@
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
-    "cravego_backend": "file:../cravego-backend",
+    "cravego_backend": "file:../studyspacebackend",
     "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
