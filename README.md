@@ -1,2 +1,2 @@
-# CraveGo Backend
+# Study Space Backend
 
