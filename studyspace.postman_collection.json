@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "115c32e0-5747-4ba8-87e9-c61e5e88febc",
+		"name": "studyspace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36029631",
+		"_collection_link": "https://universal-robot-951442.postman.co/workspace/New-Team-Workspace~1a66f3ea-405c-4da7-8a04-0dbb017859ad/collection/36029631-115c32e0-5747-4ba8-87e9-c61e5e88febc?action=share&source=collection_link&creator=36029631"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"basitt4@gmail.com\",\r\n    \"password\":\"basit123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"basitt4@gmail.com\",\r\n    \"password\":\"basit123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "collections",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ4MzkxLCJleHAiOjE3NDAyNTMxOTF9.kQjzZ5yk__0gXtKQ8w-OqBsbJalST_zvMBxFIZ0UQXM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"My New Collection\",\r\n  \"description\": \"A description of my new collection.\",\r\n  \"visibility\": \"public\",\r\n  \"tags\": [\"tag1\", \"tag2\"]\r\n}\r\nget",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/collection/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"collection",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/collection/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"collection",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ5MjczLCJleHAiOjE3NDAyNTQwNzN9.-jMtzo-pj5YMmVd-2-KS81JJnACK7jHY_XP4tRepwSA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/collection/getById/67b0ee03ddc5376142f7074e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"collection",
+								"getById",
+								"67b0ee03ddc5376142f7074e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ4ODMyLCJleHAiOjE3NDAyNTM2MzJ9.cFYHiWz5cVDxmC3UU-CT3-DC5BpIe9prR1-MlmDfEnk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"My New updated title Collection\",\r\n  \"description\": \"A description of my new collection.\",\r\n  \"visibility\": \"private\",\r\n  \"tags\": [\"tag1\", \"tag2\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/collection/update/67b0ee03ddc5376142f7074e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"collection",
+								"update",
+								"67b0ee03ddc5376142f7074e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ4ODMyLCJleHAiOjE3NDAyNTM2MzJ9.cFYHiWz5cVDxmC3UU-CT3-DC5BpIe9prR1-MlmDfEnk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/collection/delete/67b0ee03ddc5376142f7074e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"collection",
+								"delete",
+								"67b0ee03ddc5376142f7074e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chatbot",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ4ODMyLCJleHAiOjE3NDAyNTM2MzJ9.cFYHiWz5cVDxmC3UU-CT3-DC5BpIe9prR1-MlmDfEnk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\":\"hwo are you?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/chatbot/process",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"chatbot",
+								"process"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "resources",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
