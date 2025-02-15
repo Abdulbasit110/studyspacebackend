@@ -82,7 +82,7 @@ const updateCollection = async (req, res, next) => {
     const updatedCollection = await Collection.findByIdAndUpdate(id, updates, {
       new: true,
     });
-    if (!updatedCollection) throw new NotFoundError("Collection not found");
+    if (!updatedCollection) throw new Error("Collection not found");
 
     res.status(200).json({
       code: 200,
@@ -107,12 +107,11 @@ const deleteCollection = async (req, res, next) => {
   }
 };
 
-
 const getAllCollectionsByOwner = async (req, res, next) => {
   try {
     const ownerId = req.userId;
     const { search, visibility, tags } = req.query;
-    
+
     let filter = { ownerId };
 
     if (search) {
@@ -130,7 +129,10 @@ const getAllCollectionsByOwner = async (req, res, next) => {
       filter.tags = { $in: tags.split(",") }; // Convert comma-separated tags to an array
     }
 
-    const collections = await Collection.find(filter).populate("ownerId", "name email");
+    const collections = await Collection.find(filter).populate(
+      "ownerId",
+      "name email"
+    );
 
     if (collections.length === 0) {
       return res.status(404).json({
@@ -148,7 +150,6 @@ const getAllCollectionsByOwner = async (req, res, next) => {
     createErrorResponse(res, error);
   }
 };
-
 
 // const getAllCollectionsByOwner = async (req, res, next) => {
 //   try {

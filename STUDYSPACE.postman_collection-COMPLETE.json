@@ -1,0 +1,614 @@
+{
+	"info": {
+		"_postman_id": "d70ddffe-530d-41dd-9577-1d23e8156815",
+		"name": "STUDYSPACE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36029631",
+		"_collection_link": "https://universal-robot-951442.postman.co/workspace/New-Team-Workspace~1a66f3ea-405c-4da7-8a04-0dbb017859ad/collection/36029631-d70ddffe-530d-41dd-9577-1d23e8156815?action=share&source=collection_link&creator=36029631"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "LOGIN API",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"muhammadjawwad417@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SIGN UP API",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"muhammadjawwad417@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COLLECTION",
+			"item": [
+				{
+					"name": "CREATE COLLECTION",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IxMGE5ZGNmMDkzNzU4ZjY0ZTU4ZTAiLCJ1c2VybmFtZSI6Im11aGFtbWFkamF3d2FkNDE3IiwiYXV0aFR5cGUiOiJwYXNzd29yZCIsImlhdCI6MTczOTY1NTg2MSwiZXhwIjoxNzQwMjYwNjYxfQ.qy-2TX15InhbPgIA9L38PL9XtHxqpsqUrlDrFIe7-XM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"My collection2\",\r\n    \"description\": \"this is for testing\",\r\n    \"visibility\": \"private\",\r\n    \"tags\": [\"chain\", \"block\"]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/collection/new",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collection",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL COLLECTIONS",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/collection/getAll",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collection",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COLLECTION BY CREATOR",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IxMGE5ZGNmMDkzNzU4ZjY0ZTU4ZTAiLCJ1c2VybmFtZSI6Im11aGFtbWFkamF3d2FkNDE3IiwiYXV0aFR5cGUiOiJwYXNzd29yZCIsImlhdCI6MTczOTY1NTg2MSwiZXhwIjoxNzQwMjYwNjYxfQ.qy-2TX15InhbPgIA9L38PL9XtHxqpsqUrlDrFIe7-XM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/collection/get/byCreator?search=my&visibility=private&tags=cs,dev",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collection",
+								"get",
+								"byCreator"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "my"
+								},
+								{
+									"key": "visibility",
+									"value": "private"
+								},
+								{
+									"key": "tags",
+									"value": "cs,dev"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COLLECTION BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ5MjczLCJleHAiOjE3NDAyNTQwNzN9.-jMtzo-pj5YMmVd-2-KS81JJnACK7jHY_XP4tRepwSA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/collection/getById/67b10a9dcf093758f64e58e0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collection",
+								"getById",
+								"67b10a9dcf093758f64e58e0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE COLLECTION BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ4ODMyLCJleHAiOjE3NDAyNTM2MzJ9.cFYHiWz5cVDxmC3UU-CT3-DC5BpIe9prR1-MlmDfEnk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{e\r\n  \"title\": \"My New updated title Collection\",\r\n  \"description\": \"A description of my new collection.\",\r\n  \"visibility\": \"private\",\r\n  \"tags\": [\"tag1\", \"tag2\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/collection/update/67b10b65cf093758f64e58e4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collection",
+								"update",
+								"67b10b65cf093758f64e58e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE COLLECTION BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ5MjczLCJleHAiOjE3NDAyNTQwNzN9.-jMtzo-pj5YMmVd-2-KS81JJnACK7jHY_XP4tRepwSA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/collection/delete/67b10b65cf093758f64e58e4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collection",
+								"delete",
+								"67b10b65cf093758f64e58e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL COLLECTION BY OWNER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ4ODMyLCJleHAiOjE3NDAyNTM2MzJ9.cFYHiWz5cVDxmC3UU-CT3-DC5BpIe9prR1-MlmDfEnk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/collection/get/byCreator",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collection",
+								"get",
+								"byCreator"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RESOURCE",
+			"item": [
+				{
+					"name": "CREATE RESOURCE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IxMGE5ZGNmMDkzNzU4ZjY0ZTU4ZTAiLCJ1c2VybmFtZSI6Im11aGFtbWFkamF3d2FkNDE3IiwiYXV0aFR5cGUiOiJwYXNzd29yZCIsImlhdCI6MTczOTY1NTg2MSwiZXhwIjoxNzQwMjYwNjYxfQ.qy-2TX15InhbPgIA9L38PL9XtHxqpsqUrlDrFIe7-XM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Python Intermediate 2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "A guide to Python",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Repository",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "Intermediate",
+									"type": "text"
+								},
+								{
+									"key": "info[category]",
+									"value": "Programming",
+									"type": "text"
+								},
+								{
+									"key": "info[published]",
+									"value": "2025-02-16",
+									"type": "text"
+								},
+								{
+									"key": "collectionId",
+									"value": "67b10b65cf093758f64e58e4",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1efa776c-7521-46c0-8f62-c266e608f1bd"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/api/resource/new",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"resource",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL REOURCES",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/resource/getAll",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"resource",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET RESOURCES BY COLLECTION ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IxMGE5ZGNmMDkzNzU4ZjY0ZTU4ZTAiLCJ1c2VybmFtZSI6Im11aGFtbWFkamF3d2FkNDE3IiwiYXV0aFR5cGUiOiJwYXNzd29yZCIsImlhdCI6MTczOTY1NTg2MSwiZXhwIjoxNzQwMjYwNjYxfQ.qy-2TX15InhbPgIA9L38PL9XtHxqpsqUrlDrFIe7-XM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/resource/get/byCollection/67b10b65cf093758f64e58e4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"resource",
+								"get",
+								"byCollection",
+								"67b10b65cf093758f64e58e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET RESOURCES BY UPLOADER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IxMGE5ZGNmMDkzNzU4ZjY0ZTU4ZTAiLCJ1c2VybmFtZSI6Im11aGFtbWFkamF3d2FkNDE3IiwiYXV0aFR5cGUiOiJwYXNzd29yZCIsImlhdCI6MTczOTY1NTg2MSwiZXhwIjoxNzQwMjYwNjYxfQ.qy-2TX15InhbPgIA9L38PL9XtHxqpsqUrlDrFIe7-XM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/resource/get/byUploader?type=Book&",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"resource",
+								"get",
+								"byUploader"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Book"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE RESOURCE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IxMGE5ZGNmMDkzNzU4ZjY0ZTU4ZTAiLCJ1c2VybmFtZSI6Im11aGFtbWFkamF3d2FkNDE3IiwiYXV0aFR5cGUiOiJwYXNzd29yZCIsImlhdCI6MTczOTY1NTg2MSwiZXhwIjoxNzQwMjYwNjYxfQ.qy-2TX15InhbPgIA9L38PL9XtHxqpsqUrlDrFIe7-XM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/resource/delete/67b0e16e6187058947b17f94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"resource",
+								"delete",
+								"67b0e16e6187058947b17f94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET RESOURCE BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IxMGE5ZGNmMDkzNzU4ZjY0ZTU4ZTAiLCJ1c2VybmFtZSI6Im11aGFtbWFkamF3d2FkNDE3IiwiYXV0aFR5cGUiOiJwYXNzd29yZCIsImlhdCI6MTczOTY1NTg2MSwiZXhwIjoxNzQwMjYwNjYxfQ.qy-2TX15InhbPgIA9L38PL9XtHxqpsqUrlDrFIe7-XM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/resource/getById/67b0e16e6187058947b17f94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"resource",
+								"getById",
+								"67b0e16e6187058947b17f94"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CHATBOT",
+			"item": [
+				{
+					"name": "GET RESPONSE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2IwZWI1ZDMzYmFmODU0MjBhZjE4MjYiLCJ1c2VybmFtZSI6ImJhc2l0dDQiLCJhdXRoVHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzM5NjQ4ODMyLCJleHAiOjE3NDAyNTM2MzJ9.cFYHiWz5cVDxmC3UU-CT3-DC5BpIe9prR1-MlmDfEnk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\":\"hwo are you?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/chatbot/process",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chatbot",
+								"process"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
