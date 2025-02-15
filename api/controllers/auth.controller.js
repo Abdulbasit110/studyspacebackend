@@ -2,31 +2,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 const { createErrorResponse } = require("../../util/errorHandler");
-const { rolesEnum } = require("../../util/enum");
 const JWT_SECRET = process.env.JWT_SecretKey || "mysupersupersecretkey";
 
 const signup = async (req, res) => {
   try {
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      location,
-      address,
-      phoneNumber,
-      role,
-    } = req.body;
-
-    // Validate role (Ensure role is one of the allowed values)
-    if (role && !Object.values(rolesEnum).includes(role)) {
-      return res.status(400).json({
-        code: 400,
-        message: `Invalid role. Allowed roles are: ${Object.values(
-          rolesEnum
-        ).join(", ")}`,
-      });
-    }
+    const { email, password, firstName, lastName, role } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -45,9 +25,6 @@ const signup = async (req, res) => {
       password: hashedPassword,
       firstName,
       lastName,
-      location,
-      address,
-      phoneNumber,
       role,
     });
     await user.save();
@@ -97,8 +74,7 @@ const login = async (req, res) => {
       message: "Login successful",
       token: token,
       data: {
-        userId: user._id,
-        role: user.role,
+        user,
       },
     });
   } catch (error) {
