@@ -5,6 +5,7 @@ const isAuth = require("../middlewares/isAuth"); // Your authentication middlewa
 
 // Import custom multer configuration
 const upload = require("../../util/multer");
+const authenticateToken = require("../middlewares/isAuth");
 
 // Define allowed MIME types (adjust as needed)
 const allowedFileTypes = ["text/plain", "application/pdf"];
@@ -13,7 +14,7 @@ const allowedFileTypes = ["text/plain", "application/pdf"];
 // Expects a multipart/form-data request with a "query" field and an optional "file"
 router.post(
   "/process",
-  isAuth,
+  authenticateToken,
   upload("uploads", allowedFileTypes).single("file"),
   chatbotController.processChat
 );

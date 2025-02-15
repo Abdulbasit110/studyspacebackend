@@ -6,7 +6,7 @@ const ChatbotMessage = require("../models/chatbotMessage.model");
 // This controller expects a file (optional) and a query in the request.
 exports.processChat = async (req, res, next) => {
   try {
-    const userId = req.user.id; // Assumes authentication middleware sets req.user
+    const userId = req.userId; // Assumes authentication middleware sets req.user
     const { query } = req.body;
 
     if (!query || query.trim() === "") {
