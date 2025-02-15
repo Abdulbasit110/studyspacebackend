@@ -17,7 +17,7 @@ const fileStorage = (destination) =>
       cb(null, destination);
     },
     filename: (req, file, cb) => {
-      const originalnameWithoutSpaces = file.originalname.replace(/\s/g, '');
+      const originalnameWithoutSpaces = file.originalname.replace(/\s/g, "");
       cb(null, `${Date.now()}-${originalnameWithoutSpaces}`);
     },
   });
@@ -26,7 +26,7 @@ const upload = (destination, allowedFileTypes) =>
   multer({
     storage: fileStorage(destination),
     fileFilter: (req, file, cb) => {
-      // Check if file type is 
+      // Check if file type is
       console.log("file.mimetype", file.mimetype);
       const isAllowed = allowedFileTypes.includes(file.mimetype);
       if (isAllowed) {
