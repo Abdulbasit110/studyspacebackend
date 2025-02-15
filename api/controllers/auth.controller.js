@@ -7,17 +7,19 @@ const JWT_SECRET = process.env.JWT_SecretKey || "mysupersupersecretkey";
 const signup = async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body;
+    // Validate that email and password are provided
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ code: 400, message: "Email and password are required" });
+    }
 
     let user = await User.findOne({ email });
 
     if (user) {
-      // If user exists and is signing up via Google, update their Google ID
-      // if (googleId && user.authType === "google") {
-      //   user.googleId = googleId;
-      //   await user.save();
-      //   return generateAndSendToken(user, res, "User updated with Google ID");
-      // }
-      return res.status(409).json({ code: 409, message: "Email is already registered" });
+      return res
+        .status(409)
+        .json({ code: 409, message: "Email is already registered" });
     }
 
     // Hash password if it's a password-based signup
@@ -47,7 +49,9 @@ const login = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ code: 401, message: "Invalid email or user not found" });
+      return res
+        .status(401)
+        .json({ code: 401, message: "Invalid email or user not found" });
     }
 
     // if (googleId) {
@@ -61,7 +65,8 @@ const login = async (req, res) => {
     if (user.authType === "google") {
       return res.status(400).json({
         code: 400,
-        message: "This account is registered via Google authentication. Use Google Login.",
+        message:
+          "This account is registered via Google authentication. Use Google Login.",
       });
     }
 

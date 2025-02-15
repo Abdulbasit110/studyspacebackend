@@ -8,8 +8,8 @@ const JWT_SECRET = process.env.JWT_SecretKey || "mysupersupersecretkey";
 const passport = require("passport");
 const router = express.Router();
 
-router.post("/signup", validateSignUp, signup);
-router.post("/login", validateLogin, login);
+router.post("/signup", signup);
+router.post("/login", login);
 router.get(
   "/google/callback",
   passport.authenticate("google", {
@@ -34,9 +34,6 @@ router.get(
   }
 );
 module.exports = router;
-
-
-
 
 // const express = require("express");
 // const { signup, login } = require("../controllers/auth.controller");
@@ -65,10 +62,5 @@ module.exports = router;
 // );
 
 // module.exports = router;
-
-
-
-
-
 
 // api/routes/auth.router.js
