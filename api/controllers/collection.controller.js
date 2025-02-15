@@ -107,13 +107,31 @@ const deleteCollection = async (req, res, next) => {
   }
 };
 
+
 const getAllCollectionsByOwner = async (req, res, next) => {
   try {
     const ownerId = req.userId;
-    const collections = await Collection.find({ ownerId }).populate(
-      "ownerId",
-      "name email"
-    );
+    const { search, visibility, tags } = req.query;
+    
+    let filter = { ownerId };
+
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    if (visibility) {
+      filter.visibility = visibility;
+    }
+
+    if (tags) {
+      filter.tags = { $in: tags.split(",") }; // Convert comma-separated tags to an array
+    }
+
+    const collections = await Collection.find(filter).populate("ownerId", "name email");
+
     if (collections.length === 0) {
       return res.status(404).json({
         code: 404,
@@ -130,6 +148,31 @@ const getAllCollectionsByOwner = async (req, res, next) => {
     createErrorResponse(res, error);
   }
 };
+
+
+// const getAllCollectionsByOwner = async (req, res, next) => {
+//   try {
+//     const ownerId = req.userId;
+//     const collections = await Collection.find({ ownerId }).populate(
+//       "ownerId",
+//       "name email"
+//     );
+//     if (collections.length === 0) {
+//       return res.status(404).json({
+//         code: 404,
+//         message: "No collections found",
+//       });
+//     }
+
+//     res.status(200).json({
+//       code: 200,
+//       message: "Collections retrieved by Owner",
+//       data: collections,
+//     });
+//   } catch (error) {
+//     createErrorResponse(res, error);
+//   }
+// };
 
 module.exports = {
   createCollection,

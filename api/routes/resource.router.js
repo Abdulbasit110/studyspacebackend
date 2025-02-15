@@ -7,7 +7,7 @@ const upload = require("../../util/multer");
 router.post(
   "/new",
   authenticateToken,
-  upload("uploads/resources", [
+  upload("uploads/resourceMedia", [
     "application/pdf",
     "video/mp4",
     "image/png",
@@ -21,7 +21,7 @@ router.get("/getById/:id", resourceController.getResourceById);
 router.put(
   "/update/:id",
   authenticateToken,
-  upload("uploads/resources", [
+  upload("uploads/resourceMedia", [
     "application/pdf",
     "video/mp4",
     "image/png",
@@ -35,5 +35,11 @@ router.delete(
   authenticateToken,
   resourceController.deleteResource
 );
+
+
+
+router.get("/get/byCollection/:collectionId",authenticateToken, resourceController.getAllResourcesByCollection);
+router.get("/get/byUploader",authenticateToken, resourceController.getAllResourcesByUploader);
+
 
 module.exports = router;

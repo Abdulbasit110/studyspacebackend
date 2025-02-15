@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan("dev"));
-app.use("/images", express.static(path.join(__dirname, "images")));
-console.log(path.join(__dirname, "images"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+console.log(path.join(__dirname, "uploads"));
 
 // To protect from CORS
 app.use((req, res, next) => {
