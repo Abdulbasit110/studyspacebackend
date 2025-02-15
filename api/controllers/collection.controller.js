@@ -5,7 +5,7 @@ const { createErrorResponse } = require("../../util/errorHandler");
 const createCollection = async (req, res, next) => {
     try {
         const { title, description, visibility, tags } = req.body;
-        const ownerId = req.user.id; // Assuming user ID is attached to the request
+        const ownerId = req.userId; // Assuming user ID is attached to the request
 
         const newCollection = await Collection.create({
             title,
@@ -90,10 +90,29 @@ const deleteCollection = async (req, res, next) => {
 };
 
 
+const getAllCollectionsByOwner = async (req, res, next) => {
+    try {
+        const ownerId = req.userId;
+        const collections = await Collection.find({ ownerId }).populate("ownerId", "name email");
+        if (collections.length === 0) {
+            return res.status(404).json({
+                code: 404,
+                message: "No collections found",
+            });
+        }
+
+        res.status(200).json({ code: 200, message: "Collections retrieved by Owner", data: collections });
+    } catch (error) {
+        createErrorResponse(res, error);
+    }
+};
+
+
 module.exports = {
     createCollection,
     getAllCollections,
     getCollectionById,
     updateCollection,
     deleteCollection,
+    getAllCollectionsByOwner,
 };

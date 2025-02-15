@@ -10,4 +10,6 @@ router.get("/getById/:id", collectionController.getCollectionById);
 router.put("/update/:id", authenticateToken,validateUpdateCollection, collectionController.updateCollection);
 router.delete("/delete/:id", authenticateToken, collectionController.deleteCollection);
 
+router.get("/get/byCreator", collectionController.getAllCollectionsByOwner);
+
 module.exports = router;

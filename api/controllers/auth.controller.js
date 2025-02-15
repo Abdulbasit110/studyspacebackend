@@ -6,23 +6,23 @@ const JWT_SECRET = process.env.JWT_SecretKey || "mysupersupersecretkey";
 
 const signup = async (req, res) => {
   try {
-    const { email, password, firstName, lastName, googleId } = req.body;
+    const { email, password, firstName, lastName } = req.body;
 
     let user = await User.findOne({ email });
 
     if (user) {
       // If user exists and is signing up via Google, update their Google ID
-      if (googleId && user.authType === "google") {
-        user.googleId = googleId;
-        await user.save();
-        return generateAndSendToken(user, res, "User updated with Google ID");
-      }
+      // if (googleId && user.authType === "google") {
+      //   user.googleId = googleId;
+      //   await user.save();
+      //   return generateAndSendToken(user, res, "User updated with Google ID");
+      // }
       return res.status(409).json({ code: 409, message: "Email is already registered" });
     }
 
     // Hash password if it's a password-based signup
-    const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
-    const authType = googleId ? "google" : "password";
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const authType = "password";
 
     user = new User({
       username: email.split("@")[0],
@@ -31,7 +31,7 @@ const signup = async (req, res) => {
       authType,
       firstName: firstName || null,
       lastName: lastName || null,
-      googleId: googleId || null,
+      googleId: null,
     });
 
     await user.save();
@@ -43,20 +43,20 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password, googleId } = req.body;
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(401).json({ code: 401, message: "Invalid email or user not found" });
     }
 
-    if (googleId) {
-      // Google authentication
-      if (user.authType !== "google" || user.googleId !== googleId) {
-        return res.status(400).json({ code: 400, message: "Google authentication failed" });
-      }
-      return generateAndSendToken(user, res, "Login successful with Google");
-    }
+    // if (googleId) {
+    //   // Google authentication
+    //   if (user.authType !== "google" || user.googleId !== googleId) {
+    //     return res.status(400).json({ code: 400, message: "Google authentication failed" });
+    //   }
+    //   return generateAndSendToken(user, res, "Login successful with Google");
+    // }
 
     if (user.authType === "google") {
       return res.status(400).json({
