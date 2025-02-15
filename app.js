@@ -9,13 +9,13 @@ const authRoutes = require("./api/routes/auth.router");
 const collectionRoutes = require("./api/routes/collection.router");
 const chatbotRouter = require("./api/routes/chatbot.router");
 const resource = require("./api/routes/resource.router");
-
+const passport = require("passport");
+require("./config/passport");
 const app = express();
 
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(morgan("dev"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 console.log(path.join(__dirname, "uploads"));
@@ -37,6 +37,7 @@ app.use("/api/collection", collectionRoutes);
 app.use("/api/chatbot", chatbotRouter);
 app.use("/api/resource", resource);
 
+app.use(passport.initialize());
 // setting mongoose connection and starting server
 mongoose.set("strictQuery", false);
 mongoose

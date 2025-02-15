@@ -1,6 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const User = require("../models/User");
+const User = require("../api/models/user.model");
 // const bcrypt = require("bcrypt");
 
 passport.use(
@@ -20,6 +20,7 @@ passport.use(
           user = new User({
             name: profile.displayName,
             email: email,
+            username: email.split("@")[0],
             // For Google-authenticated users, you may leave passwordHash empty or set a dummy value.
             passwordHash: "oauth",
             role: "user",

@@ -7,9 +7,14 @@ const {
 const JWT_SECRET = process.env.JWT_SecretKey || "mysupersupersecretkey";
 const passport = require("passport");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 router.post("/signup", signup);
 router.post("/login", login);
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 router.get(
   "/google/callback",
   passport.authenticate("google", {
