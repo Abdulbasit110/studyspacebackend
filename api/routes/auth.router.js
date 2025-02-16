@@ -8,7 +8,8 @@ const JWT_SECRET = process.env.JWT_SecretKey || "mysupersupersecretkey";
 const passport = require("passport");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-
+const authMiddleware = require("../../util/authMiddleware");
+const userModel = require("../models/user.model");
 router.post("/signup", signup);
 router.post("/login", login);
 router.get(
@@ -38,7 +39,6 @@ router.get(
     });
   }
 );
-module.exports = router;
 
 // const express = require("express");
 // const { signup, login } = require("../controllers/auth.controller");
@@ -69,3 +69,19 @@ module.exports = router;
 // module.exports = router;
 
 // api/routes/auth.router.js
+
+router.get("/user", authMiddleware, async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id).select("-passwordHash"); // Exclude password
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+module.exports = router;
